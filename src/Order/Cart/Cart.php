@@ -11,5 +11,19 @@ namespace Reis\SteloSdk\Cart;
 
 class Cart
 {
+    /**
+     * @var array
+     */
+    private $itens = array();
+
+    /**
+     * Item constructor.
+     * @param Item $item
+     */
+    public function __construct(Item $item)
+    {
+        $this->itens[] = $item;
+    }
+
 
 }
