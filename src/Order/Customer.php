@@ -6,14 +6,15 @@
  * Time: 14:46
  */
 
-namespace Reis\SteloSdk;
+namespace Reis\SteloSdk\Order;
 
 
+use Reis\SteloSdk\Contract\Arrayable;
 use Reis\SteloSdk\Customer\BillingAddress;
 use Reis\SteloSdk\Customer\ShippingAddress;
 use Reis\SteloSdk\Phone\Phone;
 
-class Customer
+class Customer implements Arrayable
 {
     /**
      * @var string CPF do cliente
@@ -47,4 +48,126 @@ class Customer
      * @var Phone Dados de telefones
      */
     private $phoneData;
+
+    /**
+     * Customer constructor.
+     * @param string $customerIdentity
+     * @param string $customerName
+     * @param string $customerEmail
+     * @param string $birthDate
+     * @param string $gender
+     * @param BillingAddress $billingAddress
+     * @param ShippingAddress $shippingAddress
+     * @param Phone $phoneData
+     */
+    public function __construct($customerIdentity = null, $customerName = null, $customerEmail = null, $birthDate = null, $gender = null, BillingAddress $billingAddress = null, ShippingAddress $shippingAddress = null, Phone $phoneData = null)
+    {
+        $this->customerIdentity = $customerIdentity;
+        $this->customerName = $customerName;
+        $this->customerEmail = $customerEmail;
+        $this->birthDate = $birthDate;
+        $this->gender = $gender;
+        $this->billingAddress = $billingAddress;
+        $this->shippingAddress = $shippingAddress;
+        $this->phoneData = $phoneData;
+    }
+
+    /**
+     * @param string $customerIdentity
+     * @return Customer
+     */
+    public function setCustomerIdentity($customerIdentity)
+    {
+        $this->customerIdentity = $customerIdentity;
+        return $this;
+    }
+
+    /**
+     * @param string $customerName
+     * @return Customer
+     */
+    public function setCustomerName($customerName)
+    {
+        $this->customerName = $customerName;
+        return $this;
+    }
+
+    /**
+     * @param string $customerEmail
+     * @return Customer
+     */
+    public function setCustomerEmail($customerEmail)
+    {
+        $this->customerEmail = $customerEmail;
+        return $this;
+    }
+
+    /**
+     * @param string $birthDate
+     * @return Customer
+     */
+    public function setBirthDate($birthDate)
+    {
+        $this->birthDate = $birthDate;
+        return $this;
+    }
+
+    /**
+     * @param string $gender
+     * @return Customer
+     */
+    public function setGender($gender)
+    {
+        $this->gender = $gender;
+        return $this;
+    }
+
+    /**
+     * @param BillingAddress $billingAddress
+     * @return Customer
+     */
+    public function setBillingAddress($billingAddress)
+    {
+        $this->billingAddress = $billingAddress;
+        return $this;
+    }
+
+    /**
+     * @param ShippingAddress $shippingAddress
+     * @return Customer
+     */
+    public function setShippingAddress($shippingAddress)
+    {
+        $this->shippingAddress = $shippingAddress;
+        return $this;
+    }
+
+    /**
+     * @param Phone $phoneData
+     * @return Customer
+     */
+    public function setPhoneData($phoneData)
+    {
+        $this->phoneData = $phoneData;
+        return $this;
+    }
+
+    /**
+     * Returns a array representation of the object.
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return [
+            'customerIdentity' => $this->customerIdentity,
+            'customerName' => $this->customerName,
+            'customerEmail' => $this->customerEmail,
+            'birthDate' => $this->birthDate,
+            'gender' => $this->gender,
+            'billingAddress' => $this->billingAddress->toArray(),
+            'shippingAddress' => $this->shippingAddress->toArray(),
+            'phoneData' => $this->phoneData->toArray(),
+        ];
+    }
 }

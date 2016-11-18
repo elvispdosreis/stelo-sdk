@@ -6,10 +6,12 @@
  * Time: 14:47
  */
 
-namespace Reis\SteloSdk\Cart;
+namespace Reis\SteloSdk\Order\Cart;
 
 
-class Cart
+use Reis\SteloSdk\Contract\Arrayable;
+
+class Cart implements Arrayable
 {
     /**
      * @var array
@@ -23,6 +25,20 @@ class Cart
     public function __construct(Item $item)
     {
         $this->itens[] = $item;
+    }
+
+    /**
+     * Returns a array representation of the object.
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        $itens = [];
+        foreach ($this->itens as $key => $value) {
+            $itens[$key] = $value->toArray();
+        }
+        return $itens;
     }
 
 

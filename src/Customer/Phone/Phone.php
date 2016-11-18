@@ -9,7 +9,9 @@
 namespace Reis\SteloSdk\Phone;
 
 
-class Phone
+use Reis\SteloSdk\Contract\Arrayable;
+
+class Phone implements Arrayable
 {
     /**
      * @var array
@@ -23,14 +25,16 @@ class Phone
     }
 
     /**
-     * @param Item $item
-     * @return Phone
+     * Returns a array representation of the object.
+     *
+     * @return array
      */
-    public function setItem(Item $item)
+    public function toArray()
     {
-        $this->itens[] = $item;
-        return $this;
+        $itens = [];
+        foreach ($this->itens as $key => $value) {
+            $itens[$key] = $value->toArray();
+        }
+        return $itens;
     }
-
-
 }

@@ -9,7 +9,8 @@
 namespace Reis\SteloSdk\Customer;
 
 
-class BillingAddress extends Address
-{
+use Reis\SteloSdk\Contract\Arrayable;
 
+class BillingAddress extends Address implements Arrayable
+{
 }

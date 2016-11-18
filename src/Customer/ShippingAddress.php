@@ -9,16 +9,18 @@
 namespace Reis\SteloSdk\Customer;
 
 
-class ShippingAddress extends Address
+use Reis\SteloSdk\Contract\Arrayable;
+
+class ShippingAddress extends Address implements Arrayable
 {
     /**
-     * @var null|string $receiver
+     * @var null|string $receiver Recebedor
      */
     protected $receiver;
 
     /**
      * ShippingAddress constructor.
-     * @param null|string $receiver
+     * @param null|string $receiver Recebedor
      */
     public function __construct($street, $number, $complement, $neighborhood, $zipCode, $city, $state, $country, $receiver)
     {
@@ -36,4 +38,15 @@ class ShippingAddress extends Address
         return $this;
     }
 
+    /**
+     * Returns a array representation of the object.
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        $andress = parent::toArray();
+        $andress['receiver'] = $this->receiver;
+        return $andress;
+    }
 }

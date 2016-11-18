@@ -6,10 +6,12 @@
  * Time: 14:47
  */
 
-namespace Reis\SteloSdk\Cart;
+namespace Reis\SteloSdk\Order\Cart;
 
 
-class Item
+use Reis\SteloSdk\Contract\Arrayable;
+
+class Item implements Arrayable
 {
     /**
      * @var string
@@ -84,6 +86,18 @@ class Item
         return $this;
     }
 
-
-
+    /**
+     * Returns a array representation of the object.
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return [
+            'productSku' => $this->productSku,
+            'productName' => $this->productName,
+            'productPrice' => $this->productPrice,
+            'productQuantity' => $this->productQuantity
+        ];
+    }
 }

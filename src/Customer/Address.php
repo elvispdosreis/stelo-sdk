@@ -9,7 +9,9 @@
 namespace Reis\SteloSdk\Customer;
 
 
-class Address
+use Reis\SteloSdk\Contract\Arrayable;
+
+class Address implements Arrayable
 {
     /**
      * @var string|null Rua
@@ -46,14 +48,14 @@ class Address
 
     /**
      * Address constructor.
-     * @param null|string $street
-     * @param null|string $number
-     * @param null|string $complement
-     * @param null|string $neighborhood
-     * @param null|string $zipCode
-     * @param null|string $city
-     * @param null|string $state
-     * @param null|string $country
+     * @param null|string $street Rua
+     * @param null|string $number Numero
+     * @param null|string $complement Complemento
+     * @param null|string $neighborhood Bairro
+     * @param null|string $zipCode Cep
+     * @param null|string $city Cidade
+     * @param null|string $state Estado
+     * @param null|string $country Pais
      */
     public function __construct($street, $number, $complement, $neighborhood, $zipCode, $city, $state, $country)
     {
@@ -145,5 +147,24 @@ class Address
     {
         $this->country = $country;
         return $this;
+    }
+
+    /**
+     * Returns a array representation of the object.
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return [
+            'street' => $this->street,
+            'number' => $this->number,
+            'complement' => $this->complement,
+            'neighborhood' => $this->neighborhood,
+            'zipCode' => $this->zipCode,
+            'city' => $this->city,
+            'state' => $this->state,
+            'country' => $this->country,
+        ];
     }
 }

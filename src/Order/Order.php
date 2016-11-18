@@ -6,14 +6,16 @@
  * Time: 14:46
  */
 
-namespace Reis\SteloSdk;
+namespace Reis\SteloSdk\Order;
 
 
-class Order
+use Reis\SteloSdk\Contract\Arrayable;
+
+class Order implements Arrayable
 {
     /*
-         * Prazo de entrega em tempo médio (de 2 à 10 das úteis)
-         */
+    * Prazo de entrega em tempo médio (de 2 à 10 das úteis)
+    */
     const SHIPPING_DEFAULT = 'Default';
 
     /*
@@ -78,6 +80,7 @@ class Order
     public function setShippingBehavior($shippingBehavior = self::SHIPPING_DEFAULT)
     {
         $this->shippingBehavior = $shippingBehavior;
+        return $this;
     }
 
     /**
@@ -86,6 +89,7 @@ class Order
     public function setOrderId($orderId)
     {
         $this->orderId = $orderId;
+        return $this;
     }
 
     /**
@@ -94,5 +98,20 @@ class Order
     public function setSecureCode($secureCode)
     {
         $this->secureCode = $secureCode;
+        return $this;
+    }
+
+    /**
+     * Returns a array representation of the object.
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return [
+            'shippingBehavior' => $this->shippingBehavior,
+            'orderId' => $this->orderId,
+            'secureCode' => $this->secureCode
+        ];
     }
 }
