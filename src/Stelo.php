@@ -74,7 +74,7 @@ class Stelo
      * @param Card $card
      * @return Stelo
      */
-    public function setCard(Card $card)
+    public function setCard(Card &$card)
     {
         $this->card = $card;
         return $this;
@@ -84,7 +84,7 @@ class Stelo
      * @param Order $order
      * @return Stelo
      */
-    public function setOrder(Order $order)
+    public function setOrder(Order &$order)
     {
         $this->order = $order;
         return $this;
@@ -94,7 +94,7 @@ class Stelo
      * @param Payment $payment
      * @return Stelo
      */
-    public function setPayment(Payment $payment)
+    public function setPayment(Payment &$payment)
     {
         $this->payment = $payment;
         return $this;
@@ -104,7 +104,7 @@ class Stelo
      * @param Customer $customer
      * @return Stelo
      */
-    public function setCustomer(Customer $customer)
+    public function setCustomer(Customer &$customer)
     {
         $this->customer = $customer;
         return $this;

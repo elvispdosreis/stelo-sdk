@@ -9,7 +9,7 @@
 namespace Reis\SteloSdk\Order;
 
 
-use Reis\SteloSdk\Order\Cart\Cart;
+use Reis\SteloSdk\Order\Cart\CartData;
 use Reis\SteloSdk\Contract\Arrayable;
 
 class Payment implements Arrayable
@@ -48,7 +48,7 @@ class Payment implements Arrayable
      */
     private $installment;
     /**
-     * @var Cart Dados do carrinho
+     * @var CartData Dados do carrinho
      */
     private $cartData;
 
@@ -61,9 +61,9 @@ class Payment implements Arrayable
      * @param float $discountAmount
      * @param float $freight
      * @param int $installment
-     * @param Cart $cartData
+     * @param CartData $cartData
      */
-    public function __construct($paymentType = self::PAYMENT_METHOD_CARTAO, $currency = self::CURRENCY_BRL, Card $cardData = null, $amount = 0, $discountAmount = 0, $freight = 0, $installment = 1, Cart $cartData = null)
+    public function __construct($paymentType = self::PAYMENT_METHOD_CARTAO, $currency = self::CURRENCY_BRL, Card $cardData = null, $amount = 0, $discountAmount = 0, $freight = 0, $installment = 1, CartData $cartData = null)
     {
         $this->paymentType = $paymentType;
         $this->currency = $currency;
@@ -99,7 +99,7 @@ class Payment implements Arrayable
      * @param string $cardData
      * @return Payment
      */
-    public function setCardData($cardData)
+    public function setCardData(Card &$cardData)
     {
         $this->cardData = $cardData;
         return $this;
@@ -146,10 +146,10 @@ class Payment implements Arrayable
     }
 
     /**
-     * @param Cart $cartData
+     * @param CartData $cartData
      * @return Payment
      */
-    public function setCartData($cartData)
+    public function setCartData(CartData &$cartData)
     {
         $this->cartData = $cartData;
         return $this;

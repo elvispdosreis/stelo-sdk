@@ -102,6 +102,19 @@ class Order implements Arrayable
     }
 
     /**
+     * @return string
+     */
+    public function getSecureCode()
+    {
+        if(is_null($this->secureCode)){
+            self::setSecureCode(time());
+        }
+        return $this->secureCode;
+    }
+
+
+
+    /**
      * Returns a array representation of the object.
      *
      * @return array
@@ -111,7 +124,7 @@ class Order implements Arrayable
         return [
             'shippingBehavior' => $this->shippingBehavior,
             'orderId' => $this->orderId,
-            'secureCode' => $this->secureCode
+            'secureCode' => $this->getSecureCode()
         ];
     }
 }

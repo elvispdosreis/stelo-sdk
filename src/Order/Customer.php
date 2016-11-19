@@ -12,7 +12,7 @@ namespace Reis\SteloSdk\Order;
 use Reis\SteloSdk\Contract\Arrayable;
 use Reis\SteloSdk\Customer\BillingAddress;
 use Reis\SteloSdk\Customer\ShippingAddress;
-use Reis\SteloSdk\Phone\Phone;
+use Reis\SteloSdk\Phone\PhoneData;
 
 class Customer implements Arrayable
 {
@@ -45,7 +45,7 @@ class Customer implements Arrayable
      */
     private $shippingAddress;
     /**
-     * @var Phone Dados de telefones
+     * @var PhoneData Dados de telefones
      */
     private $phoneData;
 
@@ -58,9 +58,9 @@ class Customer implements Arrayable
      * @param string $gender
      * @param BillingAddress $billingAddress
      * @param ShippingAddress $shippingAddress
-     * @param Phone $phoneData
+     * @param PhoneData $phoneData
      */
-    public function __construct($customerIdentity = null, $customerName = null, $customerEmail = null, $birthDate = null, $gender = null, BillingAddress $billingAddress = null, ShippingAddress $shippingAddress = null, Phone $phoneData = null)
+    public function __construct($customerIdentity = null, $customerName = null, $customerEmail = null, $birthDate = null, $gender = null, BillingAddress $billingAddress = null, ShippingAddress $shippingAddress = null, PhoneData $phoneData = null)
     {
         $this->customerIdentity = $customerIdentity;
         $this->customerName = $customerName;
@@ -126,7 +126,7 @@ class Customer implements Arrayable
      * @param BillingAddress $billingAddress
      * @return Customer
      */
-    public function setBillingAddress($billingAddress)
+    public function setBillingAddress(BillingAddress &$billingAddress)
     {
         $this->billingAddress = $billingAddress;
         return $this;
@@ -136,17 +136,17 @@ class Customer implements Arrayable
      * @param ShippingAddress $shippingAddress
      * @return Customer
      */
-    public function setShippingAddress($shippingAddress)
+    public function setShippingAddress(ShippingAddress &$shippingAddress)
     {
         $this->shippingAddress = $shippingAddress;
         return $this;
     }
 
     /**
-     * @param Phone $phoneData
+     * @param PhoneData $phoneData
      * @return Customer
      */
-    public function setPhoneData($phoneData)
+    public function setPhoneData(PhoneData &$phoneData)
     {
         $this->phoneData = $phoneData;
         return $this;
