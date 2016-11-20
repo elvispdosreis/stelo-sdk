@@ -46,7 +46,7 @@ class Card implements Arrayable
 
     /**
      * @param string $number
-     * @return Cart
+     * @return Card
      */
     public function setNumber($number)
     {
@@ -56,7 +56,7 @@ class Card implements Arrayable
 
     /**
      * @param string $embossing
-     * @return Cart
+     * @return Card
      */
     public function setEmbossing($embossing)
     {
@@ -66,7 +66,7 @@ class Card implements Arrayable
 
     /**
      * @param string $expiryDate
-     * @return Cart
+     * @return Card
      */
     public function setExpiryDate($expiryDate)
     {
@@ -76,7 +76,7 @@ class Card implements Arrayable
 
     /**
      * @param string $cvv
-     * @return Cart
+     * @return Card
      */
     public function setCvv($cvv)
     {

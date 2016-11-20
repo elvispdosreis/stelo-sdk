@@ -16,7 +16,7 @@ class Order implements Arrayable
     /*
     * Prazo de entrega em tempo médio (de 2 à 10 das úteis)
     */
-    const SHIPPING_DEFAULT = 'Default';
+    const SHIPPING_DEFAULT = 'default';
 
     /*
      * Prazo de entregas feitas entre 12 horas e 2 dias úteis após a aprovação
@@ -76,6 +76,7 @@ class Order implements Arrayable
 
     /**
      * @param string $shippingBehavior
+     * @return Order
      */
     public function setShippingBehavior($shippingBehavior = self::SHIPPING_DEFAULT)
     {
@@ -85,6 +86,7 @@ class Order implements Arrayable
 
     /**
      * @param string $orderId
+     * @return Order
      */
     public function setOrderId($orderId)
     {
@@ -94,6 +96,7 @@ class Order implements Arrayable
 
     /**
      * @param string $secureCode
+     * @return Order
      */
     public function setSecureCode($secureCode)
     {

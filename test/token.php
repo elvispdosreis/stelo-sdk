@@ -53,20 +53,22 @@ $shippingAddress->setStreet('SHIPPING Rua')
     ->setCountry('BR')
     ->setReceiver('Teste Integração');
 
-$cel1 = new Phone(Phone::TYPE_FIXO);
-$cel2 = new Phone(Phone::TYPE_CELL);
+$cel1 = new Phone(Phone::TYPE_FIXO, '11', '24242424');
+$cel2 = new Phone(Phone::TYPE_CELL, '11', '998989898');
 
 $phoneData = new PhoneData();
 $phoneData->setItem($cel1)->setItem($cel2);
 
 
 $customer = new Customer();
-$customer->setCustomerName('Teste Integração')
+$customer->setCustomerIdentity('65776434661')
+    ->setCustomerName('Teste Integração')
     ->setCustomerEmail('teste@teste.com.br')
     ->setBirthDate('1991-01-20')
     ->setBillingAddress($billingAddress)
     ->setShippingAddress($shippingAddress)
-    ->setPhoneData($phoneData);
+    ->addPhone($cel1)
+->addPhone($cel2);
 
 $product1 = new Product();
 $product1->setProductSku(1)
@@ -80,12 +82,11 @@ $cartData->setItem($product1);
 $payment = new Payment();
 $payment->setPaymentType(Payment::PAYMENT_METHOD_CARTAO)
     ->setCurrency(Payment::CURRENCY_BRL)
-    ->setCardData($card)
     ->setAmount(180.00)
     ->setDiscountAmount(0)
     ->setFreight(45.00)
     ->setInstallment(3)
-    ->setCartData($cartData);
+    ->addProduct($product1);
 
 
 $transaction->setOrder($order);

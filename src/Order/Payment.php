@@ -11,6 +11,7 @@ namespace Reis\SteloSdk\Order;
 
 use Reis\SteloSdk\Order\Cart\CartData;
 use Reis\SteloSdk\Contract\Arrayable;
+use Reis\SteloSdk\Order\Cart\Product;
 
 class Payment implements Arrayable
 {
@@ -99,7 +100,7 @@ class Payment implements Arrayable
      * @param string $cardData
      * @return Payment
      */
-    public function setCardData(Card &$cardData)
+    public function setCardData(CardData &$cardData)
     {
         $this->cardData = $cardData;
         return $this;
@@ -152,6 +153,19 @@ class Payment implements Arrayable
     public function setCartData(CartData &$cartData)
     {
         $this->cartData = $cartData;
+        return $this;
+    }
+
+    /**
+     * @param Product $product
+     * @return Payment
+     */
+    public function addProduct(Product &$product)
+    {
+        if(is_null($this->cartData)){
+            $this->cartData = new CartData();
+        }
+        $this->cartData->setItem($product);
         return $this;
     }
 

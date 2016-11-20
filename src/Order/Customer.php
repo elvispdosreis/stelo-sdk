@@ -11,6 +11,7 @@ namespace Reis\SteloSdk\Order;
 
 use Reis\SteloSdk\Contract\Arrayable;
 use Reis\SteloSdk\Customer\BillingAddress;
+use Reis\SteloSdk\Customer\Phone\Phone;
 use Reis\SteloSdk\Customer\ShippingAddress;
 use Reis\SteloSdk\Customer\Phone\PhoneData;
 
@@ -149,6 +150,19 @@ class Customer implements Arrayable
     public function setPhoneData(PhoneData &$phoneData)
     {
         $this->phoneData = $phoneData;
+        return $this;
+    }
+
+    /**
+     * @param Phone $phone
+     * @return Customer
+     */
+    public function addPhone(Phone &$phone)
+    {
+        if(is_null($this->phoneData)){
+            $this->phoneData = new PhoneData();
+        }
+        $this->phoneData->setItem($phone);
         return $this;
     }
 

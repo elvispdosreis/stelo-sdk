@@ -10,7 +10,9 @@ namespace Reis\SteloSdk;
 
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
 use Reis\SteloSdk\Order\Card;
+use Reis\SteloSdk\Order\CardData;
 use Reis\SteloSdk\Order\Customer;
 use Reis\SteloSdk\Order\Order;
 use Reis\SteloSdk\Order\Payment;
@@ -33,9 +35,10 @@ class Stelo
      * @var Client
      */
     private $http;
-
-    private $token;
-
+    /**
+     * @var CardData
+     */
+    private $cardData;
     /**
      * @var Card
      */
@@ -57,7 +60,7 @@ class Stelo
     /**
      * Factory constructor.
      */
-    public function __construct($version = SANDBOX, $clientId = null, $secretId = null)
+    public function __construct($version = self::SANDBOX, $clientId = null, $secretId = null)
     {
         $this->clientId = $clientId;
         $this->secretId = $secretId;
@@ -126,8 +129,8 @@ class Stelo
 
             if ($res->getStatusCode() === 200) {
                 $json = $res->getBody()->getContents();
-                $this->token = \GuzzleHttp\json_decode($json);
-                $this->token;
+                $data = \GuzzleHttp\json_decode($json);
+                $this->cardData = new CardData($data->token);
             }
 
         } catch (RequestException $e) {
@@ -147,6 +150,12 @@ class Stelo
                 self::setCustomer($customer);
             }
 
+            if(is_null($this->cardData)){
+                self::dispatchToken();
+            }
+
+            $this->payment->setCardData($this->cardData);
+
             $data = [
                 'orderData' => $this->order->toArray(),
                 'paymentData' => $this->payment->toArray(),
@@ -159,15 +168,15 @@ class Stelo
                 ]
             ]);
 
-            if ($res->getStatusCode() === 200) {
-                $json = $res->getBody()->getContents();
-                $this->token = \GuzzleHttp\json_decode($json);
-                $this->token;
-            }
+            $json = $res->getBody()->getContents();
+            return  \GuzzleHttp\json_decode($json);
 
         } catch (RequestException $e) {
             throw new \Exception($e->getMessage(), 400);
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage(), 400);
         }
+
     }
 
     /**
@@ -175,7 +184,7 @@ class Stelo
      */
     public function getToken()
     {
-        return $this->token;
+        return $this->cardData;
     }
 
 
