@@ -25,7 +25,7 @@ $card->setEmbossing('Fulano');
 $card->setExpiryDate('10/17');
 $card->setCvv('903');
 
-$transaction = new Stelo(Stelo::SANDBOX, '1e03584872f45a6f2860b9778f56c4d3', 'd05426574d8789b2835cc8cda06b636c');
+$transaction = new Stelo(Stelo::SANDBOX, '', '');
 $transaction->setCard($card);
 
 
