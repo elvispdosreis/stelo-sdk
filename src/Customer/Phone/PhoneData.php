@@ -3,29 +3,46 @@
  * Created by PhpStorm.
  * User: Elvis
  * Date: 17/11/2016
- * Time: 14:47
+ * Time: 15:17
  */
 
-namespace Reis\SteloSdk\Order\Cart;
+namespace Reis\SteloSdk\Customer\Phone;
 
 
 use Reis\SteloSdk\Contract\Arrayable;
 
-class Cart implements Arrayable
+class PhoneData implements Arrayable
 {
     /**
      * @var array
      */
-    private $itens = array();
+    private $itens = [];
+
+    public function __construct(Phone $item = null)
+    {
+        if ($item instanceof Phone) {
+            $this->itens[] = $item;
+        }
+    }
 
     /**
-     * Item constructor.
-     * @param Item $item
+     * @return mixed
      */
-    public function __construct(Item $item)
+    public function getItem()
+    {
+        return $this->itens;
+    }
+
+    /**
+     * @param Phone $item
+     * @return PhoneData
+     */
+    public function setItem(Phone &$item)
     {
         $this->itens[] = $item;
+        return $this;
     }
+
 
     /**
      * Returns a array representation of the object.
@@ -40,6 +57,4 @@ class Cart implements Arrayable
         }
         return $itens;
     }
-
-
 }

@@ -11,7 +11,7 @@ namespace Reis\SteloSdk\Order\Cart;
 
 use Reis\SteloSdk\Contract\Arrayable;
 
-class Item implements Arrayable
+class Product implements Arrayable
 {
     /**
      * @var string
@@ -48,7 +48,7 @@ class Item implements Arrayable
 
     /**
      * @param string $productSku
-     * @return Cart
+     * @return Product
      */
     public function setProductSku($productSku)
     {
@@ -58,7 +58,7 @@ class Item implements Arrayable
 
     /**
      * @param string $productName
-     * @return Cart
+     * @return Product
      */
     public function setProductName($productName)
     {
@@ -68,7 +68,7 @@ class Item implements Arrayable
 
     /**
      * @param float $productPrice
-     * @return Cart
+     * @return Product
      */
     public function setProductPrice($productPrice)
     {
@@ -78,7 +78,7 @@ class Item implements Arrayable
 
     /**
      * @param float $productQuantity
-     * @return Cart
+     * @return Product
      */
     public function setProductQuantity($productQuantity)
     {

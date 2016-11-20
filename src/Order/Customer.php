@@ -12,7 +12,7 @@ namespace Reis\SteloSdk\Order;
 use Reis\SteloSdk\Contract\Arrayable;
 use Reis\SteloSdk\Customer\BillingAddress;
 use Reis\SteloSdk\Customer\ShippingAddress;
-use Reis\SteloSdk\Phone\PhoneData;
+use Reis\SteloSdk\Customer\Phone\PhoneData;
 
 class Customer implements Arrayable
 {

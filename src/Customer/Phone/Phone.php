@@ -6,7 +6,7 @@
  * Time: 15:17
  */
 
-namespace Reis\SteloSdk\Phone;
+namespace Reis\SteloSdk\Customer\Phone;
 
 
 use Reis\SteloSdk\Contract\Arrayable;
@@ -14,14 +14,67 @@ use Reis\SteloSdk\Contract\Arrayable;
 class Phone implements Arrayable
 {
     /**
-     * @var array
+     * Fixo
      */
-    private $itens = [];
+    const TYPE_FIXO = 'LANDLINE';
+    /**
+     * Celular
+     */
+    const TYPE_CELL = 'CELL';
+    /**
+     * @var string Tipo
+     */
+    private $type;
+    /**
+     * @var int Número do DDD
+     */
+    private $areaCode;
+    /**
+     * @var int Número de telefone
+     */
+    private $number;
 
-
-    public function __construct()
+    /**
+     * Item constructor.
+     * @param string $type
+     * @param int $areaCode
+     * @param int $number
+     */
+    public function __construct($type = self::TYPE_FIXO, $areaCode = null, $number = null)
     {
-        $this->itens = [];
+        $this->type = $type;
+        $this->areaCode = $areaCode;
+        $this->number = $number;
+    }
+
+    /**
+     * @param string $type
+     * @return Phone
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+        return $this;
+    }
+
+    /**
+     * @param int $areaCode
+     * @return Phone
+     */
+    public function setAreaCode($areaCode)
+    {
+        $this->areaCode = $areaCode;
+        return $this;
+    }
+
+    /**
+     * @param int $number
+     * @return Phone
+     */
+    public function setNumber($number)
+    {
+        $this->number = $number;
+        return $this;
     }
 
     /**
@@ -31,10 +84,12 @@ class Phone implements Arrayable
      */
     public function toArray()
     {
-        $itens = [];
-        foreach ($this->itens as $key => $value) {
-            $itens[$key] = $value->toArray();
-        }
-        return $itens;
+        return [
+            'type' => $this->type,
+            'areaCode' => $this->areaCode,
+            'number' => $this->number
+        ];
     }
+
+
 }

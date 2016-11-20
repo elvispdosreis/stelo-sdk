@@ -22,10 +22,10 @@ class ShippingAddress extends Address implements Arrayable
      * ShippingAddress constructor.
      * @param null|string $receiver Recebedor
      */
-    public function __construct($street, $number, $complement, $neighborhood, $zipCode, $city, $state, $country, $receiver)
+    public function __construct($street = null, $number = null, $complement = null, $neighborhood = null, $zipCode = null, $city = null, $state = null, $country = null, $receiver = null)
     {
         parent::__construct($street, $number, $complement, $neighborhood, $zipCode, $city, $state, $country);
-        $this->receiver = $receiver;
+        $this->setReceiver($receiver);
     }
 
     /**

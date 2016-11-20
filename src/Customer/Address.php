@@ -57,7 +57,7 @@ class Address implements Arrayable
      * @param null|string $state Estado
      * @param null|string $country Pais
      */
-    public function __construct($street, $number, $complement, $neighborhood, $zipCode, $city, $state, $country)
+    public function __construct($street = null, $number = null, $complement = null, $neighborhood = null, $zipCode = null, $city = null, $state = null, $country = null)
     {
         $this->street = $street;
         $this->number = $number;
