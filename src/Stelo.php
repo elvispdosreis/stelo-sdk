@@ -220,5 +220,4 @@ class Stelo
         return $this->cardData;
     }
 
-
 }
