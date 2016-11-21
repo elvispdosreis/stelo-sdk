@@ -1,5 +1,5 @@
 {
-    "name": "elvis/stelo-sdk",
+    "name": "reis/stelo-sdk",
     "description": "Integracao Stelo",
     "type": "stelo, pagameto pela api stelo",
     "require": {
