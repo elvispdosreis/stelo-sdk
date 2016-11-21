@@ -172,10 +172,7 @@ class Stelo
                 'customerData' => $this->customer->toArray()
             ];
             $res = $this->http->request('POST', '/ec/V1/subacquirer/transactions', [
-                'json' => $data,
-                'headers' => [
-                    'clientID' => $this->clientId
-                ]
+                'json' => $data
             ]);
 
             $json = $res->getBody()->getContents();
@@ -191,16 +188,28 @@ class Stelo
 
     public function findTransaction($steloID)
     {
-        $res = $this->http->request("GET", "/ec/V1/subacquirer/transactions/{$steloID}");
-        $json = $res->getBody()->getContents();
-        return \GuzzleHttp\json_decode($json);
+        try {
+            $res = $this->http->request("GET", "/ec/V1/orders/transactions/{$steloID}");
+            $json = $res->getBody()->getContents();
+            return \GuzzleHttp\json_decode($json);
+        } catch (RequestException $e) {
+            throw new \Exception($e->getMessage(), 400);
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage(), 400);
+        }
     }
 
     public function deleteTransaction($steloID)
     {
-        $res = $this->http->request("DELETE", "/ec/V1/orders/transactions/{$steloID}");
-        $json = $res->getBody()->getContents();
-        return \GuzzleHttp\json_decode($json);
+        try {
+            $res = $this->http->request("DELETE", "/ec/V1/orders/transactions/{$steloID}");
+            $json = $res->getBody()->getContents();
+            return \GuzzleHttp\json_decode($json);
+        } catch (RequestException $e) {
+            throw new \Exception($e->getMessage(), 400);
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage(), 400);
+        }
     }
 
     /**
