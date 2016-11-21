@@ -1,7 +1,7 @@
 {
     "name": "reis/stelo-sdk",
     "description": "Integracao Stelo",
-    "type": "stelo, pagameto pela api stelo",
+    "type": "library",
     "require": {
         "guzzlehttp/guzzle": "^6.2"
     },
@@ -11,7 +11,6 @@
             "email": "elvisdosreis@gmail.com"
         }
     ],
-    "version": "0.1.0",
     "minimum-stability": "RC",
     "autoload": {
         "psr-4": {"Reis\\SteloSdk\\": "src"}
