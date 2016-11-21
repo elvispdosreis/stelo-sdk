@@ -113,10 +113,16 @@ class Stelo
         return $this;
     }
 
-    public function dispatchToken(Card $card = null)
+
+    /**
+     * @param Card|null $card
+     * @return CardData
+     * @throws \Exception
+     */
+    public function sendToken(Card $card = null)
     {
         try {
-            if(!is_null($card)){
+            if (!is_null($card)) {
                 self::setCard($card);
             }
 
@@ -131,27 +137,31 @@ class Stelo
                 $json = $res->getBody()->getContents();
                 $data = \GuzzleHttp\json_decode($json);
                 $this->cardData = new CardData($data->token);
+                return $this->cardData;
             }
 
         } catch (RequestException $e) {
             throw new \Exception($e->getMessage(), 400);
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage(), 400);
         }
     }
 
-    public function dispatchTransaction(Order $order = null, Payment $payment = null, Customer $customer = null){
+    public function sendTransaction(Order $order = null, Payment $payment = null, Customer $customer = null)
+    {
         try {
-            if(!is_null($order)){
+            if (!is_null($order)) {
                 self::setOrder($order);
             }
-            if(!is_null($payment)){
+            if (!is_null($payment)) {
                 self::setPayment($payment);
             }
-            if(!is_null($customer)){
+            if (!is_null($customer)) {
                 self::setCustomer($customer);
             }
 
-            if(is_null($this->cardData)){
-                self::dispatchToken();
+            if (is_null($this->cardData)) {
+                self::sendToken();
             }
 
             $this->payment->setCardData($this->cardData);
@@ -169,7 +179,7 @@ class Stelo
             ]);
 
             $json = $res->getBody()->getContents();
-            return  \GuzzleHttp\json_decode($json);
+            return \GuzzleHttp\json_decode($json);
 
         } catch (RequestException $e) {
             throw new \Exception($e->getMessage(), 400);
@@ -177,6 +187,20 @@ class Stelo
             throw new \Exception($e->getMessage(), 400);
         }
 
+    }
+
+    public function findTransaction($steloID)
+    {
+        $res = $this->http->request("GET", "/ec/V1/subacquirer/transactions/{$steloID}");
+        $json = $res->getBody()->getContents();
+        return \GuzzleHttp\json_decode($json);
+    }
+
+    public function deleteTransaction($steloID)
+    {
+        $res = $this->http->request("DELETE", "/ec/V1/orders/transactions/{$steloID}");
+        $json = $res->getBody()->getContents();
+        return \GuzzleHttp\json_decode($json);
     }
 
     /**

@@ -21,17 +21,17 @@ class Order implements Arrayable
     /*
      * Prazo de entregas feitas entre 12 horas e 2 dias úteis após a aprovação
      */
-    const SHIPPING_Fast = 'Fast';
+    const SHIPPING_Fast = 'fast';
 
     /*
      * Prazo de entregas feitas entre 12 horas e 2 dias úteis após a aprovação
      */
-    const SHIPPING_EXPRESS = 'Express';
+    const SHIPPING_EXPRESS = 'express';
 
     /*
      * Prazo de entrega acima de 10 dias úteis
      */
-    const SHIPPING_EXTENSIVE = 'Extensive';
+    const SHIPPING_EXTENSIVE = 'extensive';
 
     /*
      * Produto será retirado em loja
@@ -46,7 +46,7 @@ class Order implements Arrayable
     /*
      * Produto será retirado em loja
      */
-    const SHIPPING_SERVICE = 'Serviço';
+    const SHIPPING_SERVICE = 'serviço';
 
     /**
      * @var string

@@ -1,5 +1,7 @@
 /.idea/
 /vendor/
-/test/
+/test/config.php
+/test/php_errors.log
+/test/start php 7.0 - 8888.bat
 /.gitignore
 composer.lock
