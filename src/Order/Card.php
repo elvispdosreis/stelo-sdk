@@ -38,10 +38,10 @@ class Card implements Arrayable
      */
     public function __construct($number = null, $embossing = null, $expiryDate = null, $cvv = null)
     {
-        $this->number = $number;
-        $this->embossing = $embossing;
-        $this->expiryDate = $expiryDate;
-        $this->cvv = $cvv;
+        $this->setNumber($number);
+        $this->setEmbossing($embossing);
+        $this->setExpiryDate($expiryDate);
+        $this->setCvv($cvv);
     }
 
     /**

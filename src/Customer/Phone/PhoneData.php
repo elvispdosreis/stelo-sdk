@@ -21,7 +21,7 @@ class PhoneData implements Arrayable
     public function __construct(Phone $item = null)
     {
         if ($item instanceof Phone) {
-            $this->itens[] = $item;
+            $this->setItem($item);
         }
     }
 

@@ -42,9 +42,9 @@ class Phone implements Arrayable
      */
     public function __construct($type = self::TYPE_FIXO, $areaCode = null, $number = null)
     {
-        $this->type = $type;
-        $this->areaCode = $areaCode;
-        $this->number = $number;
+        $this->setType($type);
+        $this->setAreaCode($areaCode);
+        $this->setNumber($number);
     }
 
     /**

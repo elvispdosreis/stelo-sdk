@@ -29,7 +29,7 @@ class Payment implements Arrayable
      */
     private $currency;
     /**
-     * @var string Token
+     * @var CardData
      */
     private $cardData;
     /**
@@ -57,23 +57,23 @@ class Payment implements Arrayable
      * Payment constructor.
      * @param string $paymentType
      * @param string $currency
-     * @param string $cardData
+     * @param CardData $cardData
      * @param float $amount
      * @param float $discountAmount
      * @param float $freight
      * @param int $installment
      * @param CartData $cartData
      */
-    public function __construct($paymentType = self::PAYMENT_METHOD_CARTAO, $currency = self::CURRENCY_BRL, Card $cardData = null, $amount = 0, $discountAmount = 0, $freight = 0, $installment = 1, CartData $cartData = null)
+    public function __construct($paymentType = self::PAYMENT_METHOD_CARTAO, $currency = self::CURRENCY_BRL, CardData $cardData = null, $amount = 0, $discountAmount = 0, $freight = 0, $installment = 1, CartData $cartData = null)
     {
-        $this->paymentType = $paymentType;
-        $this->currency = $currency;
-        $this->cardData = $cardData;
-        $this->amount = $amount;
-        $this->discountAmount = $discountAmount;
-        $this->freight = $freight;
-        $this->installment = $installment;
-        $this->cartData = $cartData;
+        $this->setPaymentType($paymentType);
+        $this->setCurrency($currency);
+        $this->setCardData($cardData);
+        $this->setAmount($amount);
+        $this->setDiscountAmount($discountAmount);
+        $this->setFreight($freight);
+        $this->setInstallment($installment);
+        $this->setCartData($cartData);
     }
 
     /**

@@ -21,7 +21,7 @@ class CardData implements Arrayable
      */
     public function __construct($token)
     {
-        $this->token = $token;
+        $this->setToken($token);
     }
 
     /**

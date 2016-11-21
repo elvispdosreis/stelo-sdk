@@ -63,14 +63,14 @@ class Customer implements Arrayable
      */
     public function __construct($customerIdentity = null, $customerName = null, $customerEmail = null, $birthDate = null, $gender = null, BillingAddress $billingAddress = null, ShippingAddress $shippingAddress = null, PhoneData $phoneData = null)
     {
-        $this->customerIdentity = $customerIdentity;
-        $this->customerName = $customerName;
-        $this->customerEmail = $customerEmail;
-        $this->birthDate = $birthDate;
-        $this->gender = $gender;
-        $this->billingAddress = $billingAddress;
-        $this->shippingAddress = $shippingAddress;
-        $this->phoneData = $phoneData;
+        $this->setCustomerIdentity($customerIdentity);
+        $this->setCustomerName($customerName);
+        $this->setCustomerEmail($customerEmail);
+        $this->setBirthDate($birthDate);
+        $this->setGender($gender);
+        $this->setBillingAddress($billingAddress);
+        $this->setShippingAddress($shippingAddress);
+        $this->setPhoneData($phoneData);
     }
 
     /**

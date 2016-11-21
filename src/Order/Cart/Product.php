@@ -40,10 +40,10 @@ class Product implements Arrayable
      */
     public function __construct($productSku = '', $productName = '', $productPrice = 0, $productQuantity = 0)
     {
-        $this->productSku = $productSku;
-        $this->productName = $productName;
-        $this->productPrice = $productPrice;
-        $this->productQuantity = $productQuantity;
+        $this->setProductSku($productSku);
+        $this->setProductName($productName);
+        $this->setProductPrice($productPrice);
+        $this->setProductQuantity($productQuantity);
     }
 
     /**

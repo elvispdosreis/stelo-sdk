@@ -25,7 +25,7 @@ class CartData implements Arrayable
     public function __construct(Product $item = null)
     {
         if ($item instanceof Product) {
-            $this->itens[] = $item;
+            $this->setItem($item);
         }
     }
 

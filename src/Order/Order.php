@@ -69,9 +69,9 @@ class Order implements Arrayable
      */
     public function __construct($shippingBehavior = self::SHIPPING_DEFAULT, $orderId = null, $secureCode = null)
     {
-        $this->shippingBehavior = $shippingBehavior;
-        $this->orderId = $orderId;
-        $this->secureCode = $secureCode;
+        $this->setShippingBehavior($shippingBehavior);
+        $this->setOrderId($orderId);
+        $this->setSecureCode($secureCode);
     }
 
     /**

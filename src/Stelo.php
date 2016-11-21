@@ -149,12 +149,24 @@ class Stelo
             }
 
         } catch (RequestException $e) {
-            throw new \Exception($e->getMessage(), 400);
+            if ($e->hasResponse()) {
+                throw new \Exception($e->getResponse(), 400);
+            }
+            else {
+                throw new \Exception($e->getMessage(), 400);
+            }
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage(), 400);
         }
     }
 
+    /**
+     * @param Order|null $order
+     * @param Payment|null $payment
+     * @param Customer|null $customer
+     * @return mixed
+     * @throws \Exception
+     */
     public function sendTransaction(Order $order = null, Payment $payment = null, Customer $customer = null)
     {
         try {
@@ -187,7 +199,12 @@ class Stelo
             return \GuzzleHttp\json_decode($json);
 
         } catch (RequestException $e) {
-            throw new \Exception($e->getMessage(), 400);
+            if ($e->hasResponse()) {
+                throw new \Exception($e->getResponse(), 400);
+            }
+            else {
+                throw new \Exception($e->getMessage(), 400);
+            }
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage(), 400);
         }
