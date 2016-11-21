@@ -62,6 +62,14 @@ class Stelo
      */
     public function __construct($version = self::SANDBOX, $clientId = null, $secretId = null)
     {
+        if($version === 'SANDBOX'){
+            $version = self::SANDBOX;
+        }
+
+        if($version === 'API'){
+            $version = self::API;
+        }
+
         $this->clientId = $clientId;
         $this->secretId = $secretId;
         $this->http = new Client([
