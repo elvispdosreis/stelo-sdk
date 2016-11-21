@@ -63,7 +63,7 @@ class Phone implements Arrayable
      */
     public function setAreaCode($areaCode)
     {
-        $this->areaCode = $areaCode;
+        $this->areaCode = (string)$areaCode;
         return $this;
     }
 
@@ -73,7 +73,7 @@ class Phone implements Arrayable
      */
     public function setNumber($number)
     {
-        $this->number = $number;
+        $this->number = (string)$number;
         return $this;
     }
 

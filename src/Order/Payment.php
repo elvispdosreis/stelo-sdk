@@ -64,16 +64,20 @@ class Payment implements Arrayable
      * @param int $installment
      * @param CartData $cartData
      */
-    public function __construct($paymentType = self::PAYMENT_METHOD_CARTAO, $currency = self::CURRENCY_BRL, CardData $cardData = null, $amount = 0, $discountAmount = 0, $freight = 0, $installment = 1, CartData $cartData = null)
+    public function __constructa($paymentType = self::PAYMENT_METHOD_CARTAO, $currency = self::CURRENCY_BRL, CardData $cardData = null, $amount = 0, $discountAmount = 0, $freight = 0, $installment = 1, CartData $cartData = null)
     {
         $this->setPaymentType($paymentType);
         $this->setCurrency($currency);
-        $this->setCardData($cardData);
         $this->setAmount($amount);
         $this->setDiscountAmount($discountAmount);
         $this->setFreight($freight);
         $this->setInstallment($installment);
-        $this->setCartData($cartData);
+        if($cardData instanceof CardData) {
+            $this->setCardData($cardData);
+        }
+        if($cartData instanceof CartData){
+            $this->setCartData($cartData);
+        }
     }
 
     /**
@@ -112,7 +116,7 @@ class Payment implements Arrayable
      */
     public function setAmount($amount)
     {
-        $this->amount = $amount;
+        $this->amount = (double)$amount;
         return $this;
     }
 
@@ -122,7 +126,7 @@ class Payment implements Arrayable
      */
     public function setDiscountAmount($discountAmount)
     {
-        $this->discountAmount = $discountAmount;
+        $this->discountAmount = (double)$discountAmount;
         return $this;
     }
 
@@ -132,7 +136,7 @@ class Payment implements Arrayable
      */
     public function setFreight($freight)
     {
-        $this->freight = $freight;
+        $this->freight = (double)$freight;
         return $this;
     }
 
@@ -142,7 +146,7 @@ class Payment implements Arrayable
      */
     public function setInstallment($installment)
     {
-        $this->installment = $installment;
+        $this->installment = (int)$installment;
         return $this;
     }
 

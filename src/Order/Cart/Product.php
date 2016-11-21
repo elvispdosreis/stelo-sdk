@@ -52,7 +52,7 @@ class Product implements Arrayable
      */
     public function setProductSku($productSku)
     {
-        $this->productSku = $productSku;
+        $this->productSku = (string)$productSku;
         return $this;
     }
 
@@ -62,7 +62,7 @@ class Product implements Arrayable
      */
     public function setProductName($productName)
     {
-        $this->productName = $productName;
+        $this->productName = (string)$productName;
         return $this;
     }
 
@@ -72,7 +72,7 @@ class Product implements Arrayable
      */
     public function setProductPrice($productPrice)
     {
-        $this->productPrice = $productPrice;
+        $this->productPrice = (double)$productPrice;
         return $this;
     }
 
@@ -82,7 +82,7 @@ class Product implements Arrayable
      */
     public function setProductQuantity($productQuantity)
     {
-        $this->productQuantity = $productQuantity;
+        $this->productQuantity = (double)$productQuantity;
         return $this;
     }
 

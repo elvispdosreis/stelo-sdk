@@ -191,6 +191,7 @@ class Stelo
                 'paymentData' => $this->payment->toArray(),
                 'customerData' => $this->customer->toArray()
             ];
+            $json = json_encode($data);
             $res = $this->http->request('POST', '/ec/V1/subacquirer/transactions', [
                 'json' => $data
             ]);

@@ -68,9 +68,15 @@ class Customer implements Arrayable
         $this->setCustomerEmail($customerEmail);
         $this->setBirthDate($birthDate);
         $this->setGender($gender);
-        $this->setBillingAddress($billingAddress);
-        $this->setShippingAddress($shippingAddress);
-        $this->setPhoneData($phoneData);
+        if($billingAddress instanceof BillingAddress) {
+            $this->setBillingAddress($billingAddress);
+        }
+        if($shippingAddress instanceof ShippingAddress) {
+            $this->setShippingAddress($shippingAddress);
+        }
+        if($phoneData instanceof PhoneData) {
+            $this->setPhoneData($phoneData);
+        }
     }
 
     /**
