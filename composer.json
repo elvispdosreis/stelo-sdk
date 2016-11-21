@@ -11,6 +11,8 @@
             "email": "elvisdosreis@gmail.com"
         }
     ],
+    "version": "0.1.0",
+    "minimum-stability": "RC",
     "autoload": {
         "psr-4": {"Reis\\SteloSdk\\": "src"}
     }
