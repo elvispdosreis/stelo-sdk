@@ -13,7 +13,7 @@ use Reis\SteloSdk\Order\Cart\CartData;
 use Reis\SteloSdk\Contract\Arrayable;
 use Reis\SteloSdk\Order\Cart\Product;
 
-class Payment implements Arrayable
+class PaymentData implements Arrayable
 {
     const PAYMENT_METHOD_CARTAO = 'credit';
     const PAYMENT_METHOD_BOLETO = 'bankSlip';
@@ -64,7 +64,7 @@ class Payment implements Arrayable
      * @param int $installment
      * @param CartData $cartData
      */
-    public function __constructa($paymentType = self::PAYMENT_METHOD_CARTAO, $currency = self::CURRENCY_BRL, CardData $cardData = null, $amount = 0, $discountAmount = 0, $freight = 0, $installment = 1, CartData $cartData = null)
+    public function __construct($paymentType = self::PAYMENT_METHOD_CARTAO, $currency = self::CURRENCY_BRL, CardData $cardData = null, $amount = 0, $discountAmount = 0, $freight = 0, $installment = 1, CartData $cartData = null)
     {
         $this->setPaymentType($paymentType);
         $this->setCurrency($currency);
@@ -80,9 +80,11 @@ class Payment implements Arrayable
         }
     }
 
+
+
     /**
      * @param string $paymentType
-     * @return Payment
+     * @return PaymentData
      */
     public function setPaymentType($paymentType)
     {
@@ -92,7 +94,7 @@ class Payment implements Arrayable
 
     /**
      * @param string $currency
-     * @return Payment
+     * @return PaymentData
      */
     public function setCurrency($currency)
     {
@@ -102,7 +104,7 @@ class Payment implements Arrayable
 
     /**
      * @param string $cardData
-     * @return Payment
+     * @return PaymentData
      */
     public function setCardData(CardData &$cardData)
     {
@@ -112,7 +114,7 @@ class Payment implements Arrayable
 
     /**
      * @param float $amount
-     * @return Payment
+     * @return PaymentData
      */
     public function setAmount($amount)
     {
@@ -122,7 +124,7 @@ class Payment implements Arrayable
 
     /**
      * @param float $discountAmount
-     * @return Payment
+     * @return PaymentData
      */
     public function setDiscountAmount($discountAmount)
     {
@@ -132,7 +134,7 @@ class Payment implements Arrayable
 
     /**
      * @param float $freight
-     * @return Payment
+     * @return PaymentData
      */
     public function setFreight($freight)
     {
@@ -142,7 +144,7 @@ class Payment implements Arrayable
 
     /**
      * @param int $installment
-     * @return Payment
+     * @return PaymentData
      */
     public function setInstallment($installment)
     {
@@ -152,7 +154,7 @@ class Payment implements Arrayable
 
     /**
      * @param CartData $cartData
-     * @return Payment
+     * @return PaymentData
      */
     public function setCartData(CartData &$cartData)
     {
@@ -162,7 +164,7 @@ class Payment implements Arrayable
 
     /**
      * @param Product $product
-     * @return Payment
+     * @return PaymentData
      */
     public function addProduct(Product &$product)
     {

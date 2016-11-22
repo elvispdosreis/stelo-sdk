@@ -13,10 +13,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Reis\SteloSdk\Order\Card;
 use Reis\SteloSdk\Order\CardData;
-use Reis\SteloSdk\Order\Customer;
 use Reis\SteloSdk\Order\Order;
-use Reis\SteloSdk\Order\OrderData;
-use Reis\SteloSdk\Order\Payment;
 
 class Stelo
 {
@@ -36,26 +33,6 @@ class Stelo
      * @var Client
      */
     private $http;
-    /**
-     * @var CardData
-     */
-    private $cardData;
-    /**
-     * @var Card
-     */
-    private $card;
-    /**
-     * @var Order
-     */
-    private $order;
-    /**
-     * @var Payment
-     */
-    private $payment;
-    /**
-     * @var Customer
-     */
-    private $customer;
 
 
     /**
@@ -63,11 +40,11 @@ class Stelo
      */
     public function __construct($version = self::SANDBOX, $clientId = null, $secretId = null)
     {
-        if($version === 'SANDBOX'){
+        if ($version === 'SANDBOX') {
             $version = self::SANDBOX;
         }
 
-        if($version === 'API'){
+        if ($version === 'API') {
             $version = self::API;
         }
 
@@ -82,61 +59,18 @@ class Stelo
         ]);
     }
 
+
     /**
      * @param Card $card
-     * @return Stelo
-     */
-    public function setCard(Card &$card)
-    {
-        $this->card = $card;
-        return $this;
-    }
-
-    /**
-     * @param Order $order
-     * @return Stelo
-     */
-    public function setOrder(Order &$order)
-    {
-        $this->order = $order;
-        return $this;
-    }
-
-    /**
-     * @param Payment $payment
-     * @return Stelo
-     */
-    public function setPayment(Payment &$payment)
-    {
-        $this->payment = $payment;
-        return $this;
-    }
-
-    /**
-     * @param Customer $customer
-     * @return Stelo
-     */
-    public function setCustomer(Customer &$customer)
-    {
-        $this->customer = $customer;
-        return $this;
-    }
-
-
-    /**
-     * @param Card|null $card
      * @return CardData
      * @throws \Exception
      */
-    public function sendToken(Card $card = null)
+    public function getToken(Card $card)
     {
         try {
-            if (!is_null($card)) {
-                self::setCard($card);
-            }
 
             $res = $this->http->request('POST', '/security/v1/cards/tokens', [
-                'json' => $this->card->toArray(),
+                'json' => $card->toArray(),
                 'headers' => [
                     'clientID' => $this->clientId
                 ]
@@ -145,15 +79,14 @@ class Stelo
             if ($res->getStatusCode() === 200) {
                 $json = $res->getBody()->getContents();
                 $data = \GuzzleHttp\json_decode($json);
-                $this->cardData = new CardData($data->token);
-                return $this->cardData;
+                return new CardData($data->token);
             }
 
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
-                throw new \Exception($e->getResponse(), 400);
-            }
-            else {
+                $res = \GuzzleHttp\json_decode($e->getResponse()->getBody());
+                throw new \Exception($res->errorDescription, $res->errorCode);
+            } else {
                 throw new \Exception($e->getMessage(), 400);
             }
         } catch (\Exception $e) {
@@ -161,52 +94,33 @@ class Stelo
         }
     }
 
+
     /**
-     * @param Order|null $order
-     * @param Payment|null $payment
-     * @param Customer|null $customer
-     * @return OrderData
+     * @param Order $order
+     * @return mixed
      * @throws \Exception
      */
-    public function sendTransaction(Order $order = null, Payment $payment = null, Customer $customer = null)
+    public function sendTransaction(Order $order)
     {
         try {
-            if (!is_null($order)) {
-                self::setOrder($order);
-            }
-            if (!is_null($payment)) {
-                self::setPayment($payment);
-            }
-            if (!is_null($customer)) {
-                self::setCustomer($customer);
-            }
-
-            if (is_null($this->cardData)) {
-                self::sendToken();
-            }
-
-            $this->payment->setCardData($this->cardData);
-
-            $data = [
-                'orderData' => $this->order->toArray(),
-                'paymentData' => $this->payment->toArray(),
-                'customerData' => $this->customer->toArray()
-            ];
 
             $res = $this->http->request('POST', '/ec/V1/subacquirer/transactions', [
-                'json' => $data
+                'json' => $order->toArray()
             ]);
 
             $json = $res->getBody()->getContents();
             $order = \GuzzleHttp\json_decode($json);
-            $order = $order->orderData;
-            return new OrderData($order->orderId, $order->nsu, $order->tid, $order->cardNumber);
+            return $order = $order->orderData;
 
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
-                throw new \Exception($e->getResponse(), 400);
-            }
-            else {
+                $res = \GuzzleHttp\json_decode($e->getResponse()->getBody());
+                $msg = '';
+                foreach ($res->detail->message as $detail){
+                    $msg = $detail;
+                }
+                throw new \Exception($msg, $res->errorCode);
+            } else {
                 throw new \Exception($e->getMessage(), 400);
             }
         } catch (\Exception $e) {
@@ -215,6 +129,12 @@ class Stelo
 
     }
 
+
+    /**
+     * @param $steloID
+     * @return mixed
+     * @throws \Exception
+     */
     public function findTransaction($steloID)
     {
         try {
@@ -228,6 +148,12 @@ class Stelo
         }
     }
 
+
+    /**
+     * @param $steloID
+     * @return mixed
+     * @throws \Exception
+     */
     public function deleteTransaction($steloID)
     {
         try {
@@ -239,14 +165,6 @@ class Stelo
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage(), 400);
         }
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getToken()
-    {
-        return $this->cardData;
     }
 
 }

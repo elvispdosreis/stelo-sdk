@@ -2,15 +2,56 @@
 /**
  * Created by PhpStorm.
  * User: Elvis
- * Date: 21/11/2016
- * Time: 22:19
+ * Date: 17/11/2016
+ * Time: 14:46
  */
 
 namespace Reis\SteloSdk\Order;
 
 
-class OrderData
+use Reis\SteloSdk\Contract\Arrayable;
+
+class OrderData implements Arrayable
 {
+    /*
+    * Prazo de entrega em tempo médio (de 2 à 10 das úteis)
+    */
+    const SHIPPING_DEFAULT = 'default';
+
+    /*
+     * Prazo de entregas feitas entre 12 horas e 2 dias úteis após a aprovação
+     */
+    const SHIPPING_Fast = 'fast';
+
+    /*
+     * Prazo de entregas feitas entre 12 horas e 2 dias úteis após a aprovação
+     */
+    const SHIPPING_EXPRESS = 'express';
+
+    /*
+     * Prazo de entrega acima de 10 dias úteis
+     */
+    const SHIPPING_EXTENSIVE = 'extensive';
+
+    /*
+     * Produto será retirado em loja
+     */
+    const SHIPPING_STOREPICKUP = 'storePickup';
+
+    /*
+     * Produto digital
+     */
+    const SHIPPING_DIGITAL = 'digital';
+
+    /*
+     * Produto será retirado em loja
+     */
+    const SHIPPING_SERVICE = 'serviço';
+
+    /**
+     * @var string
+     */
+    private $shippingBehavior;
     /**
      * @var string
      */
@@ -18,37 +59,29 @@ class OrderData
     /**
      * @var string
      */
-    private $nsu;
-    /**
-     * @var string
-     */
-    private $id;
-    /**
-     * @var string
-     */
-    private $cardNumber;
+    private $secureCode;
 
     /**
-     * OrderData constructor.
-     * @param $orderId string
-     * @param $nsu string
-     * @param $tid string
-     * @param $cardNumber string
+     * Order constructor.
+     * @param string $shippingBehavior
+     * @param string $orderId
+     * @param string $secureCode
      */
-    public function __construct($orderId, $nsu, $tid, $cardNumber)
+    public function __construct($shippingBehavior = self::SHIPPING_DEFAULT, $orderId = null, $secureCode = null)
     {
-        $this->orderId = $orderId;
-        $this->nsu = $nsu;
-        $this->tid = $tid;
-        $this->cardNumber = $cardNumber;
+        $this->setShippingBehavior($shippingBehavior);
+        $this->setOrderId($orderId);
+        $this->setSecureCode($secureCode);
     }
 
     /**
-     * @return string
+     * @param string $shippingBehavior
+     * @return OrderData
      */
-    public function getOrderId()
+    public function setShippingBehavior($shippingBehavior = self::SHIPPING_DEFAULT)
     {
-        return $this->orderId;
+        $this->shippingBehavior = $shippingBehavior;
+        return $this;
     }
 
     /**
@@ -62,60 +95,39 @@ class OrderData
     }
 
     /**
-     * @return string
-     */
-    public function getNsu()
-    {
-        return $this->nsu;
-    }
-
-    /**
-     * @param string $nsu
+     * @param string $secureCode
      * @return OrderData
      */
-    public function setNsu($nsu)
+    public function setSecureCode($secureCode)
     {
-        $this->nsu = $nsu;
+        $this->secureCode = $secureCode;
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getId()
+    public function getSecureCode()
     {
-        return $this->id;
+        if(is_null($this->secureCode)){
+            self::setSecureCode(time());
+        }
+        return $this->secureCode;
     }
+
+
 
     /**
-     * @param string $id
-     * @return OrderData
+     * Returns a array representation of the object.
+     *
+     * @return array
      */
-    public function setId($id)
+    public function toArray()
     {
-        $this->id = $id;
-        return $this;
+        return [
+            'shippingBehavior' => $this->shippingBehavior,
+            'orderId' => $this->orderId,
+            'secureCode' => $this->getSecureCode()
+        ];
     }
-
-    /**
-     * @return string
-     */
-    public function getCardNumber()
-    {
-        return $this->cardNumber;
-    }
-
-    /**
-     * @param string $cardNumber
-     * @return OrderData
-     */
-    public function setCardNumber($cardNumber)
-    {
-        $this->cardNumber = $cardNumber;
-        return $this;
-    }
-
-
-
-
 }

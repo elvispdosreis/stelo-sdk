@@ -15,7 +15,7 @@ use Reis\SteloSdk\Customer\Phone\Phone;
 use Reis\SteloSdk\Customer\ShippingAddress;
 use Reis\SteloSdk\Customer\Phone\PhoneData;
 
-class Customer implements Arrayable
+class CustomerData implements Arrayable
 {
     /**
      * @var string CPF do cliente
@@ -81,7 +81,7 @@ class Customer implements Arrayable
 
     /**
      * @param string $customerIdentity
-     * @return Customer
+     * @return CustomerData
      */
     public function setCustomerIdentity($customerIdentity)
     {
@@ -92,7 +92,7 @@ class Customer implements Arrayable
 
     /**
      * @param string $customerName
-     * @return Customer
+     * @return CustomerData
      */
     public function setCustomerName($customerName)
     {
@@ -102,7 +102,7 @@ class Customer implements Arrayable
 
     /**
      * @param string $customerEmail
-     * @return Customer
+     * @return CustomerData
      */
     public function setCustomerEmail($customerEmail)
     {
@@ -112,7 +112,7 @@ class Customer implements Arrayable
 
     /**
      * @param string $birthDate
-     * @return Customer
+     * @return CustomerData
      */
     public function setBirthDate($birthDate)
     {
@@ -122,7 +122,7 @@ class Customer implements Arrayable
 
     /**
      * @param string $gender
-     * @return Customer
+     * @return CustomerData
      */
     public function setGender($gender)
     {
@@ -132,7 +132,7 @@ class Customer implements Arrayable
 
     /**
      * @param BillingAddress $billingAddress
-     * @return Customer
+     * @return CustomerData
      */
     public function setBillingAddress(BillingAddress &$billingAddress)
     {
@@ -142,7 +142,7 @@ class Customer implements Arrayable
 
     /**
      * @param ShippingAddress $shippingAddress
-     * @return Customer
+     * @return CustomerData
      */
     public function setShippingAddress(ShippingAddress &$shippingAddress)
     {
@@ -152,7 +152,7 @@ class Customer implements Arrayable
 
     /**
      * @param PhoneData $phoneData
-     * @return Customer
+     * @return CustomerData
      */
     public function setPhoneData(PhoneData &$phoneData)
     {
@@ -162,7 +162,7 @@ class Customer implements Arrayable
 
     /**
      * @param Phone $phone
-     * @return Customer
+     * @return CustomerData
      */
     public function addPhone(Phone &$phone)
     {
