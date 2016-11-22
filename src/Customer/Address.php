@@ -115,6 +115,7 @@ class Address implements Arrayable
      */
     public function setZipCode($zipCode)
     {
+        $zipCode = preg_replace("/[^0-9]/", "", $zipCode);
         $this->zipCode = $zipCode;
         return $this;
     }

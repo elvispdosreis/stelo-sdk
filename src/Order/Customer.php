@@ -85,6 +85,7 @@ class Customer implements Arrayable
      */
     public function setCustomerIdentity($customerIdentity)
     {
+        $customerIdentity = preg_replace("/[^0-9]/", "", $customerIdentity);
         $this->customerIdentity = $customerIdentity;
         return $this;
     }

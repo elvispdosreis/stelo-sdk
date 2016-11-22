@@ -15,6 +15,7 @@ use Reis\SteloSdk\Order\Card;
 use Reis\SteloSdk\Order\CardData;
 use Reis\SteloSdk\Order\Customer;
 use Reis\SteloSdk\Order\Order;
+use Reis\SteloSdk\Order\OrderData;
 use Reis\SteloSdk\Order\Payment;
 
 class Stelo
@@ -164,7 +165,7 @@ class Stelo
      * @param Order|null $order
      * @param Payment|null $payment
      * @param Customer|null $customer
-     * @return mixed
+     * @return OrderData
      * @throws \Exception
      */
     public function sendTransaction(Order $order = null, Payment $payment = null, Customer $customer = null)
@@ -197,7 +198,8 @@ class Stelo
             ]);
 
             $json = $res->getBody()->getContents();
-            return \GuzzleHttp\json_decode($json);
+            $order = \GuzzleHttp\json_decode($json);
+            return new OrderData($order->orderId, $order->nsu, $order->tid, $order->cardNumber);
 
         } catch (RequestException $e) {
             if ($e->hasResponse()) {

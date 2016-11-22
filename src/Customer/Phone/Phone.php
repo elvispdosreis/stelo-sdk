@@ -63,6 +63,7 @@ class Phone implements Arrayable
      */
     public function setAreaCode($areaCode)
     {
+        $areaCode = preg_replace("/[^0-9]/", "", $areaCode);
         $this->areaCode = (string)$areaCode;
         return $this;
     }
@@ -73,6 +74,7 @@ class Phone implements Arrayable
      */
     public function setNumber($number)
     {
+        $number = preg_replace("/[^0-9]/", "", $number);
         $this->number = (string)$number;
         return $this;
     }
