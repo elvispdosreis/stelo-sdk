@@ -14,6 +14,7 @@ use GuzzleHttp\Exception\RequestException;
 use Reis\SteloSdk\Order\Card;
 use Reis\SteloSdk\Order\CardData;
 use Reis\SteloSdk\Order\Order;
+use Reis\SteloSdk\Order\OrderDataResult;
 
 class Stelo
 {
@@ -97,7 +98,7 @@ class Stelo
 
     /**
      * @param Order $order
-     * @return mixed
+     * @return OrderDataResult
      * @throws \Exception
      */
     public function sendTransaction(Order $order)
@@ -110,7 +111,8 @@ class Stelo
 
             $json = $res->getBody()->getContents();
             $order = \GuzzleHttp\json_decode($json);
-            return $order = $order->orderData;
+            $order = $order->orderData;
+            return new OrderDataResult($order->orderId, $order->nsu, $order->tid, $order->cardNumber);
 
         } catch (RequestException $e) {
             if ($e->hasResponse()) {

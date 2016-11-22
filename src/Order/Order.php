@@ -37,31 +37,13 @@ class Order implements Arrayable
         $this->order = $order;
         $this->payment = $payment;
         $this->customer = $customer;
-
-        /*
-            if (!is_null($order)) {
-                self::setOrder($order);
-            }
-            if (!is_null($payment)) {
-                self::setPayment($payment);
-            }
-            if (!is_null($customer)) {
-                self::setCustomer($customer);
-            }
-
-            if (is_null($this->cardData)) {
-                self::sendToken();
-            }
-
-            $this->payment->setCardData($this->cardData);
-         */
     }
 
     /**
      * @param OrderData $order
      * @return Order
      */
-    public function setOrder($order)
+    public function setOrder(OrderData $order)
     {
         $this->order = $order;
         return $this;
@@ -71,7 +53,7 @@ class Order implements Arrayable
      * @param PaymentData $payment
      * @return Order
      */
-    public function setPayment($payment)
+    public function setPayment(PaymentData $payment)
     {
         $this->payment = $payment;
         return $this;
@@ -81,7 +63,7 @@ class Order implements Arrayable
      * @param CustomerData $customer
      * @return Order
      */
-    public function setCustomer($customer)
+    public function setCustomer(CustomerData $customer)
     {
         $this->customer = $customer;
         return $this;
@@ -95,5 +77,31 @@ class Order implements Arrayable
             'customerData' => $this->customer->toArray()
         ];
     }
+
+    /**
+     * @return OrderData
+     */
+    public function getOrder()
+    {
+        return $this->order;
+    }
+
+    /**
+     * @return PaymentData
+     */
+    public function getPayment()
+    {
+        return $this->payment;
+    }
+
+    /**
+     * @return CustomerData
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
+    }
+
+
 
 }
