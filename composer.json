@@ -1,6 +1,6 @@
 {
     "name": "reis/stelo-sdk",
-    "description": "Integracao Stelo",
+    "description": "Integracao Stelo, em desenvolvimento ... ",
     "type": "library",
     "require": {
         "php": ">=5.5",
