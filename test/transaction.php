@@ -94,4 +94,5 @@ $payment->setPaymentType(Payment::PAYMENT_METHOD_CARTAO)
 $transaction->setOrder($order);
 $transaction->setPayment($payment);
 $transaction->setCustomer($customer);
-print_r($transaction->sendTransaction());
+$order = $transaction->sendTransaction();
+print_r($order);
