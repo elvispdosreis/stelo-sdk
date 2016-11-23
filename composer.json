@@ -1,8 +1,9 @@
 {
-    "name": "elvis/stelo-sdk",
-    "description": "Integracao Stelo",
-    "type": "stelo, pagameto pela api stelo",
+    "name": "reis/stelo-sdk",
+    "description": "Integracao Stelo, em desenvolvimento ... ",
+    "type": "library",
     "require": {
+        "php": ">=5.5",
         "guzzlehttp/guzzle": "^6.2"
     },
     "authors": [
@@ -11,7 +12,8 @@
             "email": "elvisdosreis@gmail.com"
         }
     ],
-    "minimum-stability": "RC",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": {"Reis\\SteloSdk\\": "src"}
     }
