@@ -42,9 +42,9 @@ class Phone implements Arrayable
      */
     public function __construct($type = self::TYPE_FIXO, $areaCode = null, $number = null)
     {
-        $this->type = $type;
-        $this->areaCode = $areaCode;
-        $this->number = $number;
+        $this->setType($type);
+        $this->setAreaCode($areaCode);
+        $this->setNumber($number);
     }
 
     /**
@@ -63,7 +63,8 @@ class Phone implements Arrayable
      */
     public function setAreaCode($areaCode)
     {
-        $this->areaCode = $areaCode;
+        $areaCode = preg_replace("/[^0-9]/", "", $areaCode);
+        $this->areaCode = (string)$areaCode;
         return $this;
     }
 
@@ -73,7 +74,8 @@ class Phone implements Arrayable
      */
     public function setNumber($number)
     {
-        $this->number = $number;
+        $number = preg_replace("/[^0-9]/", "", $number);
+        $this->number = (string)$number;
         return $this;
     }
 

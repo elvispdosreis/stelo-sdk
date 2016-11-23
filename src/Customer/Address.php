@@ -59,14 +59,14 @@ class Address implements Arrayable
      */
     public function __construct($street = null, $number = null, $complement = null, $neighborhood = null, $zipCode = null, $city = null, $state = null, $country = null)
     {
-        $this->street = $street;
-        $this->number = $number;
-        $this->complement = $complement;
-        $this->neighborhood = $neighborhood;
-        $this->zipCode = $zipCode;
-        $this->city = $city;
-        $this->state = $state;
-        $this->country = $country;
+        $this->setStreet($street);
+        $this->setNumber($number);
+        $this->setComplement($complement);
+        $this->setNeighborhood($neighborhood);
+        $this->setZipCode($zipCode);
+        $this->setCity($city);
+        $this->setState($state);
+        $this->setCountry($country);
     }
 
     /**
@@ -115,6 +115,7 @@ class Address implements Arrayable
      */
     public function setZipCode($zipCode)
     {
+        $zipCode = preg_replace("/[^0-9]/", "", $zipCode);
         $this->zipCode = $zipCode;
         return $this;
     }

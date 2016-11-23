@@ -15,13 +15,14 @@ class CardData implements Arrayable
 {
     private $token = null;
 
+
     /**
-     * CardToken constructor.
-     * @param null $token
+     * CardData constructor.
+     * @param $token
      */
     public function __construct($token)
     {
-        $this->token = $token;
+        $this->setToken($token);
     }
 
     /**

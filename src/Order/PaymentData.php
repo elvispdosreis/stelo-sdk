@@ -13,7 +13,7 @@ use Reis\SteloSdk\Order\Cart\CartData;
 use Reis\SteloSdk\Contract\Arrayable;
 use Reis\SteloSdk\Order\Cart\Product;
 
-class Payment implements Arrayable
+class PaymentData implements Arrayable
 {
     const PAYMENT_METHOD_CARTAO = 'credit';
     const PAYMENT_METHOD_BOLETO = 'bankSlip';
@@ -29,7 +29,7 @@ class Payment implements Arrayable
      */
     private $currency;
     /**
-     * @var string Token
+     * @var CardData
      */
     private $cardData;
     /**
@@ -57,28 +57,34 @@ class Payment implements Arrayable
      * Payment constructor.
      * @param string $paymentType
      * @param string $currency
-     * @param string $cardData
+     * @param CardData $cardData
      * @param float $amount
      * @param float $discountAmount
      * @param float $freight
      * @param int $installment
      * @param CartData $cartData
      */
-    public function __construct($paymentType = self::PAYMENT_METHOD_CARTAO, $currency = self::CURRENCY_BRL, Card $cardData = null, $amount = 0, $discountAmount = 0, $freight = 0, $installment = 1, CartData $cartData = null)
+    public function __construct($paymentType = self::PAYMENT_METHOD_CARTAO, $currency = self::CURRENCY_BRL, CardData $cardData = null, $amount = 0, $discountAmount = 0, $freight = 0, $installment = 1, CartData $cartData = null)
     {
-        $this->paymentType = $paymentType;
-        $this->currency = $currency;
-        $this->cardData = $cardData;
-        $this->amount = $amount;
-        $this->discountAmount = $discountAmount;
-        $this->freight = $freight;
-        $this->installment = $installment;
-        $this->cartData = $cartData;
+        $this->setPaymentType($paymentType);
+        $this->setCurrency($currency);
+        $this->setAmount($amount);
+        $this->setDiscountAmount($discountAmount);
+        $this->setFreight($freight);
+        $this->setInstallment($installment);
+        if($cardData instanceof CardData) {
+            $this->setCardData($cardData);
+        }
+        if($cartData instanceof CartData){
+            $this->setCartData($cartData);
+        }
     }
+
+
 
     /**
      * @param string $paymentType
-     * @return Payment
+     * @return PaymentData
      */
     public function setPaymentType($paymentType)
     {
@@ -88,7 +94,7 @@ class Payment implements Arrayable
 
     /**
      * @param string $currency
-     * @return Payment
+     * @return PaymentData
      */
     public function setCurrency($currency)
     {
@@ -98,7 +104,7 @@ class Payment implements Arrayable
 
     /**
      * @param string $cardData
-     * @return Payment
+     * @return PaymentData
      */
     public function setCardData(CardData &$cardData)
     {
@@ -108,47 +114,47 @@ class Payment implements Arrayable
 
     /**
      * @param float $amount
-     * @return Payment
+     * @return PaymentData
      */
     public function setAmount($amount)
     {
-        $this->amount = $amount;
+        $this->amount = (double)$amount;
         return $this;
     }
 
     /**
      * @param float $discountAmount
-     * @return Payment
+     * @return PaymentData
      */
     public function setDiscountAmount($discountAmount)
     {
-        $this->discountAmount = $discountAmount;
+        $this->discountAmount = (double)$discountAmount;
         return $this;
     }
 
     /**
      * @param float $freight
-     * @return Payment
+     * @return PaymentData
      */
     public function setFreight($freight)
     {
-        $this->freight = $freight;
+        $this->freight = (double)$freight;
         return $this;
     }
 
     /**
      * @param int $installment
-     * @return Payment
+     * @return PaymentData
      */
     public function setInstallment($installment)
     {
-        $this->installment = $installment;
+        $this->installment = (int)$installment;
         return $this;
     }
 
     /**
      * @param CartData $cartData
-     * @return Payment
+     * @return PaymentData
      */
     public function setCartData(CartData &$cartData)
     {
@@ -158,7 +164,7 @@ class Payment implements Arrayable
 
     /**
      * @param Product $product
-     * @return Payment
+     * @return PaymentData
      */
     public function addProduct(Product &$product)
     {

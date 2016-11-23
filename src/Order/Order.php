@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: Elvis
- * Date: 17/11/2016
- * Time: 14:46
+ * Date: 22/11/2016
+ * Time: 08:39
  */
 
 namespace Reis\SteloSdk\Order;
@@ -13,121 +13,95 @@ use Reis\SteloSdk\Contract\Arrayable;
 
 class Order implements Arrayable
 {
-    /*
-    * Prazo de entrega em tempo médio (de 2 à 10 das úteis)
-    */
-    const SHIPPING_DEFAULT = 'default';
-
-    /*
-     * Prazo de entregas feitas entre 12 horas e 2 dias úteis após a aprovação
-     */
-    const SHIPPING_Fast = 'fast';
-
-    /*
-     * Prazo de entregas feitas entre 12 horas e 2 dias úteis após a aprovação
-     */
-    const SHIPPING_EXPRESS = 'express';
-
-    /*
-     * Prazo de entrega acima de 10 dias úteis
-     */
-    const SHIPPING_EXTENSIVE = 'extensive';
-
-    /*
-     * Produto será retirado em loja
-     */
-    const SHIPPING_STOREPICKUP = 'storePickup';
-
-    /*
-     * Produto digital
-     */
-    const SHIPPING_DIGITAL = 'digital';
-
-    /*
-     * Produto será retirado em loja
-     */
-    const SHIPPING_SERVICE = 'serviço';
-
     /**
-     * @var string
+     * @var OrderData
      */
-    private $shippingBehavior;
+    private $order;
     /**
-     * @var string
+     * @var PaymentData
      */
-    private $orderId;
+    private $payment;
     /**
-     * @var string
+     * @var CustomerData
      */
-    private $secureCode;
+    private $customer;
 
     /**
      * Order constructor.
-     * @param string $shippingBehavior
-     * @param string $orderId
-     * @param string $secureCode
+     * @param OrderData $order
+     * @param PaymentData $payment
+     * @param CustomerData $customer
      */
-    public function __construct($shippingBehavior = self::SHIPPING_DEFAULT, $orderId = null, $secureCode = null)
+    public function __construct(OrderData $order = null, PaymentData $payment = null, CustomerData $customer = null)
     {
-        $this->shippingBehavior = $shippingBehavior;
-        $this->orderId = $orderId;
-        $this->secureCode = $secureCode;
+        $this->order = $order;
+        $this->payment = $payment;
+        $this->customer = $customer;
     }
 
     /**
-     * @param string $shippingBehavior
+     * @param OrderData $order
      * @return Order
      */
-    public function setShippingBehavior($shippingBehavior = self::SHIPPING_DEFAULT)
+    public function setOrder(OrderData $order)
     {
-        $this->shippingBehavior = $shippingBehavior;
+        $this->order = $order;
         return $this;
     }
 
     /**
-     * @param string $orderId
+     * @param PaymentData $payment
      * @return Order
      */
-    public function setOrderId($orderId)
+    public function setPayment(PaymentData $payment)
     {
-        $this->orderId = $orderId;
+        $this->payment = $payment;
         return $this;
     }
 
     /**
-     * @param string $secureCode
+     * @param CustomerData $customer
      * @return Order
      */
-    public function setSecureCode($secureCode)
+    public function setCustomer(CustomerData $customer)
     {
-        $this->secureCode = $secureCode;
+        $this->customer = $customer;
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getSecureCode()
-    {
-        if(is_null($this->secureCode)){
-            self::setSecureCode(time());
-        }
-        return $this->secureCode;
-    }
-
-
-
-    /**
-     * Returns a array representation of the object.
-     *
-     * @return array
-     */
     public function toArray()
     {
         return [
-            'shippingBehavior' => $this->shippingBehavior,
-            'orderId' => $this->orderId,
-            'secureCode' => $this->getSecureCode()
+            'orderData' => $this->order->toArray(),
+            'paymentData' => $this->payment->toArray(),
+            'customerData' => $this->customer->toArray()
         ];
     }
+
+    /**
+     * @return OrderData
+     */
+    public function getOrder()
+    {
+        return $this->order;
+    }
+
+    /**
+     * @return PaymentData
+     */
+    public function getPayment()
+    {
+        return $this->payment;
+    }
+
+    /**
+     * @return CustomerData
+     */
+    public function getCustomer()
+    {
+        return $this->customer;
+    }
+
+
+
 }

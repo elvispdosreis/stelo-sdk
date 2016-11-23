@@ -15,7 +15,7 @@ use Reis\SteloSdk\Customer\Phone\Phone;
 use Reis\SteloSdk\Customer\ShippingAddress;
 use Reis\SteloSdk\Customer\Phone\PhoneData;
 
-class Customer implements Arrayable
+class CustomerData implements Arrayable
 {
     /**
      * @var string CPF do cliente
@@ -63,29 +63,36 @@ class Customer implements Arrayable
      */
     public function __construct($customerIdentity = null, $customerName = null, $customerEmail = null, $birthDate = null, $gender = null, BillingAddress $billingAddress = null, ShippingAddress $shippingAddress = null, PhoneData $phoneData = null)
     {
-        $this->customerIdentity = $customerIdentity;
-        $this->customerName = $customerName;
-        $this->customerEmail = $customerEmail;
-        $this->birthDate = $birthDate;
-        $this->gender = $gender;
-        $this->billingAddress = $billingAddress;
-        $this->shippingAddress = $shippingAddress;
-        $this->phoneData = $phoneData;
+        $this->setCustomerIdentity($customerIdentity);
+        $this->setCustomerName($customerName);
+        $this->setCustomerEmail($customerEmail);
+        $this->setBirthDate($birthDate);
+        $this->setGender($gender);
+        if($billingAddress instanceof BillingAddress) {
+            $this->setBillingAddress($billingAddress);
+        }
+        if($shippingAddress instanceof ShippingAddress) {
+            $this->setShippingAddress($shippingAddress);
+        }
+        if($phoneData instanceof PhoneData) {
+            $this->setPhoneData($phoneData);
+        }
     }
 
     /**
      * @param string $customerIdentity
-     * @return Customer
+     * @return CustomerData
      */
     public function setCustomerIdentity($customerIdentity)
     {
+        $customerIdentity = preg_replace("/[^0-9]/", "", $customerIdentity);
         $this->customerIdentity = $customerIdentity;
         return $this;
     }
 
     /**
      * @param string $customerName
-     * @return Customer
+     * @return CustomerData
      */
     public function setCustomerName($customerName)
     {
@@ -95,7 +102,7 @@ class Customer implements Arrayable
 
     /**
      * @param string $customerEmail
-     * @return Customer
+     * @return CustomerData
      */
     public function setCustomerEmail($customerEmail)
     {
@@ -105,7 +112,7 @@ class Customer implements Arrayable
 
     /**
      * @param string $birthDate
-     * @return Customer
+     * @return CustomerData
      */
     public function setBirthDate($birthDate)
     {
@@ -115,7 +122,7 @@ class Customer implements Arrayable
 
     /**
      * @param string $gender
-     * @return Customer
+     * @return CustomerData
      */
     public function setGender($gender)
     {
@@ -125,7 +132,7 @@ class Customer implements Arrayable
 
     /**
      * @param BillingAddress $billingAddress
-     * @return Customer
+     * @return CustomerData
      */
     public function setBillingAddress(BillingAddress &$billingAddress)
     {
@@ -135,7 +142,7 @@ class Customer implements Arrayable
 
     /**
      * @param ShippingAddress $shippingAddress
-     * @return Customer
+     * @return CustomerData
      */
     public function setShippingAddress(ShippingAddress &$shippingAddress)
     {
@@ -145,7 +152,7 @@ class Customer implements Arrayable
 
     /**
      * @param PhoneData $phoneData
-     * @return Customer
+     * @return CustomerData
      */
     public function setPhoneData(PhoneData &$phoneData)
     {
@@ -155,7 +162,7 @@ class Customer implements Arrayable
 
     /**
      * @param Phone $phone
-     * @return Customer
+     * @return CustomerData
      */
     public function addPhone(Phone &$phone)
     {
