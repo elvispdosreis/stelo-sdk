@@ -50,7 +50,7 @@ class Card implements Arrayable
      */
     public function setNumber($number)
     {
-        $this->number = $number;
+        $this->number = preg_replace("/[^0-9]/", "", $number);
         return $this;
     }
 
