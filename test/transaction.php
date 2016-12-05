@@ -60,6 +60,7 @@ try {
     $cel2 = new Phone(Phone::TYPE_CELL, '11', '998989898');
 
     $customerData = new CustomerData();
+
     $customerData->setCustomerIdentity('65776434661')
         ->setCustomerName('Teste Integração')
         ->setCustomerEmail('teste@teste.com.br')
@@ -68,6 +69,7 @@ try {
         ->setShippingAddress($shippingAddress)
         ->addPhone($cel1)
         ->addPhone($cel2);
+
 
     $product1 = new Product();
     $product1->setProductSku(1)

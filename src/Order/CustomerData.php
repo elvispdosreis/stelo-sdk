@@ -77,6 +77,10 @@ class CustomerData implements Arrayable
         if($phoneData instanceof PhoneData) {
             $this->setPhoneData($phoneData);
         }
+        else{
+            $this->setPhoneData(new PhoneData());
+        }
+
     }
 
     /**
