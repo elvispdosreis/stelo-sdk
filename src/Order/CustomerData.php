@@ -18,9 +18,13 @@ use Reis\SteloSdk\Customer\Phone\PhoneData;
 class CustomerData implements Arrayable
 {
     /**
-     * @var string CPF do cliente
+     * @var string CPF/CNPJ do cliente
      */
     private $customerIdentity;
+    /**
+     * @var string Nome da empresa
+     */
+    private $tradingName;
     /**
      * @var string Nome do cliente
      */
@@ -53,6 +57,7 @@ class CustomerData implements Arrayable
     /**
      * Customer constructor.
      * @param string $customerIdentity
+     * @param string $tradingName
      * @param string $customerName
      * @param string $customerEmail
      * @param string $birthDate
@@ -61,9 +66,10 @@ class CustomerData implements Arrayable
      * @param ShippingAddress $shippingAddress
      * @param PhoneData $phoneData
      */
-    public function __construct($customerIdentity = null, $customerName = null, $customerEmail = null, $birthDate = null, $gender = null, BillingAddress $billingAddress = null, ShippingAddress $shippingAddress = null, PhoneData $phoneData = null)
+    public function __construct($customerIdentity = null, $tradingName = null, $customerName = null, $customerEmail = null, $birthDate = null, $gender = null, BillingAddress $billingAddress = null, ShippingAddress $shippingAddress = null, PhoneData $phoneData = null)
     {
         $this->setCustomerIdentity($customerIdentity);
+        $this->setTradingName($tradingName);
         $this->setCustomerName($customerName);
         $this->setCustomerEmail($customerEmail);
         $this->setBirthDate($birthDate);
@@ -91,6 +97,16 @@ class CustomerData implements Arrayable
     {
         $customerIdentity = preg_replace("/[^0-9]/", "", $customerIdentity);
         $this->customerIdentity = $customerIdentity;
+        return $this;
+    }
+
+    /**
+     * @param string $tradingName
+     * @return CustomerData
+     */
+    public function setTradingName($tradingName)
+    {
+        $this->tradingName = $tradingName;
         return $this;
     }
 
@@ -186,6 +202,7 @@ class CustomerData implements Arrayable
     {
         return [
             'customerIdentity' => $this->customerIdentity,
+            'tradingName' => $this->tradingName,
             'customerName' => $this->customerName,
             'customerEmail' => $this->customerEmail,
             'birthDate' => $this->birthDate,
